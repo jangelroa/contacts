@@ -1,30 +1,20 @@
 import React, { Component } from 'react';
 import ListContacts from './ListContacts';
+import * as ContactsAPI from './utils/ContactsAPI';
 
 class App extends Component {
-  contacts = [
-    {
-      "id": "ryan",
-      "name": "Ryan Florence",
-      "email": "ryan@reacttraining.com",
-      "avatarURL": "http://localhost:5001/ryan.jpg"
-    },
-    {
-      "id": "michael",
-      "name": "Michael Jackson",
-      "email": "michael@reacttraining.com",
-      "avatarURL": "http://localhost:5001/michael.jpg"
-    },
-    {
-      "id": "tyler",
-      "name": "Tyler McGinnis",
-      "email": "tyler@reacttraining.com",
-      "avatarURL": "http://localhost:5001/tyler.jpg"
-    }
-  ];
+  contacts = [];
 
   state = {
     contacts: this.contacts
+  }
+
+  componentDidMount() {
+    ContactsAPI.getAll().then((contacts) => {
+      this.setState({
+        contacts
+      })
+    })
   }
 
   removeContact = (contact) => {
@@ -33,15 +23,10 @@ class App extends Component {
     }))
   }
 
-  resetContacts = () => {
-    this.setState({ contacts: this.contacts })
-  }
-
   render() {
     return (
       <div>
         <ListContacts
-          onResetContacts={this.resetContacts}
           onDeleteContact={this.removeContact}
           contacts={this.state.contacts}
           originalContacts={this.contacts} />

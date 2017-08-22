@@ -22,7 +22,7 @@ class ListContacts extends Component {
   }
 
   render() {
-    const { contacts, onDeleteContact, onResetContacts, originalContacts } = this.props;
+    const { contacts, onDeleteContact, originalContacts } = this.props;
     const { query } = this.state;
     let showingContacts;
     if (query) {
@@ -66,11 +66,6 @@ class ListContacts extends Component {
             </li>
           ))}
         </ol>
-        {contacts.length !== originalContacts.length && (
-          <div className="showing-contacts">
-            <button onClick={() => onResetContacts()}>Reset Contacts</button>
-          </div>
-        )}
       </div>
     )
   }
